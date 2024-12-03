@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 // Allow specific origins
 const allowedOrigins = [
   'http://localhost:3000', // Local frontend
-  'https://glv1.vercel.app' // Deployed frontend
+  'https://glow-nine-blush.vercel.app' // Deployed frontend
 ];
 
 app.use(
@@ -30,11 +30,8 @@ app.use(
     credentials: true, // Include cookies or authorization headers
   })
 );
+
 // Middleware
-app.use(cors({
-  origin: 'http://localhost:3000', // Frontend URL
-  credentials: true,
-}));
 app.use(express.json());
 
 // Session Middleware
@@ -53,7 +50,7 @@ app.use(
 
 // Registration Route
 app.post('/auth/register', async (req, res) => {
-  console.log(req.body);  // Log the request body for debugging
+  console.log(req.body); // Log the request body for debugging
   const { name, email, password } = req.body;
 
   // Check if all required fields are provided
