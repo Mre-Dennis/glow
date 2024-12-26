@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { BarChart, PieChart, TrendingUp, Users, Target, Search, Zap, ArrowRight, Star, CheckCircle, ChevronDown, Eye, Heart, ArrowUpRight } from 'lucide-react'
+import { BarChart, PieChart, TrendingUp, Users, Target, Search, Zap, ArrowRight, Star, CheckCircle, ChevronDown, Eye, Heart, ArrowUpRight, Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useState, useRef } from "react"
@@ -21,6 +21,7 @@ export default function Page() {
   const statsRef = useRef(null)
   const statsInView = useInView(statsRef, { once: true })
   const [activeTab, setActiveTab] = useState('all')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   const container = {
     hidden: { opacity: 0 },
@@ -89,38 +90,86 @@ export default function Page() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 100 }}
-        className="px-4 lg:px-6 h-16 flex items-center justify-between border-b border-gray-200 bg-white fixed w-full z-50"
+        className="px-4 lg:px-6 h-16 flex items-center justify-between border-b border-gray-200 bg-white fixed w-full z-50 left-0 right-0"
       >
-        <Link className="flex items-center justify-center" href="/">
-          <BarChart className="h-6 w-6 text-blue-600" />
-          <span className="ml-2 text-xl font-bold text-blue-600">BrandInsight</span>
-        </Link>
-        <nav className="flex items-center gap-4 sm:gap-6">
-          <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="#features">
-            Features
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-between items-center">
+          <Link className="flex items-center justify-center" href="/">
+            <BarChart className="h-6 w-6 text-blue-600" />
+            <span className="ml-2 text-xl font-bold text-blue-600">BrandInsight</span>
           </Link>
-          <Link className="text-sm font-medium text-gray-600 hover:text-green-600 transition-colors" href="#pricing">
-            Pricing
-          </Link>
-          <Link className="text-sm font-medium text-gray-600 hover:text-orange-600 transition-colors" href="#testimonials">
-            Testimonials
-          </Link>
-          <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="/brand-tester">
-            Brand Tester
-          </Link>
-          <MotionButton 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            variant="default" 
-            className="bg-blue-600 hover:bg-blue-700 text-white"
+          <nav className="hidden md:flex items-center gap-4 sm:gap-6">
+            <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="#features">
+              Features
+            </Link>
+            <Link className="text-sm font-medium text-gray-600 hover:text-green-600 transition-colors" href="#pricing">
+              Pricing
+            </Link>
+            <Link className="text-sm font-medium text-gray-600 hover:text-orange-600 transition-colors" href="#testimonials">
+              Testimonials
+            </Link>
+            <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="/brand-tester">
+              Brand Tester
+            </Link>
+            <MotionButton 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              variant="default" 
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Sign In
+            </MotionButton>
+          </nav>
+          <button
+            className="md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            Sign In
-          </MotionButton>
-        </nav>
+            {mobileMenuOpen ? (
+              <X className="h-6 w-6 text-gray-600" />
+            ) : (
+              <Menu className="h-6 w-6 text-gray-600" />
+            )}
+          </button>
+        </div>
       </motion.header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden fixed inset-x-0 top-16 bg-white shadow-lg z-40"
+          >
+            <nav className="flex flex-col items-center py-4 space-y-4">
+              <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="#features" onClick={() => setMobileMenuOpen(false)}>
+                Features
+              </Link>
+              <Link className="text-sm font-medium text-gray-600 hover:text-green-600 transition-colors" href="#pricing" onClick={() => setMobileMenuOpen(false)}>
+                Pricing
+              </Link>
+              <Link className="text-sm font-medium text-gray-600 hover:text-orange-600 transition-colors" href="#testimonials" onClick={() => setMobileMenuOpen(false)}>
+                Testimonials
+              </Link>
+              <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="/brand-tester" onClick={() => setMobileMenuOpen(false)}>
+                Brand Tester
+              </Link>
+              <MotionButton 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                variant="default" 
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                Sign In
+              </MotionButton>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <main className="flex-1 pt-16">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container px-4 md:px-6">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <motion.div 
                 initial={{ opacity: 0, x: -100 }}
@@ -136,7 +185,7 @@ export default function Page() {
                     Harness the power of AI-driven market intelligence to stay ahead in the competitive consumer landscape
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                <div className="flex flex-col gap-2 sm:flex-row">
                   <MotionButton 
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -239,7 +288,7 @@ export default function Page() {
           viewport={{ once: true }}
           className="w-full py-12 md:py-24 lg:py-32 bg-gray-100"
         >
-          <div className="container px-4 md:px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.h2 
               variants={item}
               className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8 text-blue-600"
@@ -252,7 +301,7 @@ export default function Page() {
             >
               Gain a competitive edge with our advanced analytics and insights
             </motion.p>
-            <div className="flex justify-center space-x-4 mb-8">
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
               <Button
                 onClick={() => setActiveTab('all')}
                 variant={activeTab === 'all' ? 'default' : 'outline'}
@@ -323,7 +372,7 @@ export default function Page() {
         </motion.section>
 
         <section className="w-full py-12 md:py-24 lg:py-32 bg-white">
-          <div className="container px-4 md:px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -425,11 +474,11 @@ export default function Page() {
         </section>
 
         <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-          <div className="container px-4 md:px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold tracking-tighter text-green-600 text-center sm:text-4xl mb-12">
               Choose the Right Plan for Your Brand
             </h2>
-            <div className="grid gap-6 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {[
                 {
                   name: "Starter",
@@ -470,8 +519,8 @@ export default function Page() {
                   color: "border-orange-200 hover:border-orange-300"
                 },
               ].map((plan, index) => (
-                <Card key={index} className={`bg-white ${plan.color}`}>
-                  <CardContent className="p-6">
+                <Card key={index} className={`bg-white ${plan.color} flex flex-col`}>
+                  <CardContent className="p-6 flex flex-col flex-grow">
                     <div className="space-y-4">
                       <h3 className="text-xl font-bold text-gray-800">{plan.name}</h3>
                       <div className="text-3xl font-bold text-blue-600">{plan.price}<span className="text-sm font-normal text-gray-500">/month</span></div>
@@ -484,7 +533,7 @@ export default function Page() {
                           </li>
                         ))}
                       </ul>
-                      <Button className={index === 1 ? "w-full bg-green-600 hover:bg-green-700 text-white" : "w-full bg-blue-600 hover:bg-blue-700 text-white"}>
+                      <Button className={`w-full ${index === 2 ? "bg-orange-600 hover:bg-orange-700" : index === 1 ? "bg-green-600 hover:bg-green-700" : "bg-blue-600 hover:bg-blue-700"} text-white mt-auto`}>
                         Get Started
                       </Button>
                     </div>
@@ -496,7 +545,7 @@ export default function Page() {
         </section>
 
         <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-white">
-          <div className="container px-4 md:px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold tracking-tighter text-blue-600 text-center sm:text-4xl mb-12">
               What Our Clients Say
             </h2>
@@ -535,7 +584,7 @@ export default function Page() {
         </section>
 
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-          <div className="container px-4 md:px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-blue-600">
@@ -580,7 +629,7 @@ export default function Page() {
           transition={{ duration: 1 }}
           className="w-full py-12 md:py-24 lg:py-32 bg-orange-600 text-white"
         >
-          <div className="container px-4 md:px-6 text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <motion.h2 
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
@@ -616,7 +665,7 @@ export default function Page() {
         transition={{ duration: 1 }}
         className="w-full py-12 bg-white border-t border-gray-200"
       >
-        <div className="container px-4 md:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <h3 className="text-gray-800 font-bold">Company</h3>

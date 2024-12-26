@@ -6,8 +6,8 @@ import { ArrowLeft } from 'lucide-react'
 export default function BrandTesterPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <main className="flex-1 py-12 md:py-24 lg:py-32">
-        <div className="container px-4 md:px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <main className="flex-1 py-12 md:py-24 lg:py-32">
           <Link href="/" className="inline-block mb-8">
             <Button variant="ghost" className="text-blue-600 hover:text-blue-800">
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -21,8 +21,8 @@ export default function BrandTesterPage() {
             Join our exclusive community of brand testers and help shape the future of consumer products. Get early access to new products and provide valuable feedback to top brands.
           </p>
           <BrandTesterForm />
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   )
 }
