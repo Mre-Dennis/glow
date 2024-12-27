@@ -90,9 +90,9 @@ export default function Page() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 100 }}
-        className="px-4 lg:px-6 h-16 flex items-center justify-between border-b border-gray-200 bg-white fixed w-full z-50 left-0 right-0"
+        className="px-4 lg:px-6 h-16 flex items-center justify-between border-b border-gray-200 bg-white bg-opacity-40 backdrop-filter backdrop-blur-lg fixed w-full z-50 left-0 right-0"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-between items-center bg-transparent">
           <Link className="flex items-center justify-center" href="/">
             <BarChart className="h-6 w-6 text-blue-600" />
             <span className="ml-2 text-xl font-bold text-blue-600">BrandInsight</span>
@@ -110,14 +110,16 @@ export default function Page() {
             <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="/brand-tester">
               Brand Tester
             </Link>
-            <MotionButton 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              variant="default" 
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              Sign In
-            </MotionButton>
+            <Link href="/signin">
+              <MotionButton 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                variant="default" 
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                Sign In
+              </MotionButton>
+            </Link>
           </nav>
           <button
             className="md:hidden"
@@ -154,14 +156,16 @@ export default function Page() {
               <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="/brand-tester" onClick={() => setMobileMenuOpen(false)}>
                 Brand Tester
               </Link>
-              <MotionButton 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                variant="default" 
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                Sign In
-              </MotionButton>
+              <Link href="/signin">
+                <MotionButton 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  variant="default" 
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  Sign In
+                </MotionButton>
+              </Link>
             </nav>
           </motion.div>
         )}
@@ -186,13 +190,15 @@ export default function Page() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 sm:flex-row">
-                  <MotionButton 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
-                  >
-                    Start Free Trial
-                  </MotionButton>
+                  <Link href="/get-started">
+                    <MotionButton 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      Start Free Trial
+                    </MotionButton>
+                  </Link>
                   <MotionButton 
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -646,16 +652,18 @@ export default function Page() {
             >
               Join thousands of brands leveraging BrandInsight for market dominance
             </motion.p>
-            <MotionButton 
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ delay: 0.4 }}
-              className="bg-white text-orange-600 hover:bg-orange-100 mt-8"
-            >
-              Start Your Free Trial
-            </MotionButton>
+            <Link href="/get-started">
+              <MotionButton 
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ delay: 0.4 }}
+                className="bg-white text-orange-600 hover:bg-orange-100 mt-8"
+              >
+                Start Your Free Trial
+              </MotionButton>
+            </Link>
           </div>
         </motion.section>
       </main>
