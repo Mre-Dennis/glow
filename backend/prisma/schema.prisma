@@ -7,6 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// SSL enforcement (use if Prisma requires additional configuration)
+env("DATABASE_URL") + "?sslmode=require"
+
 enum Role {
   USER
   ADMIN
