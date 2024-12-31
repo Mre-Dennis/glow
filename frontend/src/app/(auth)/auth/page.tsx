@@ -36,7 +36,7 @@ export default function AuthPage() {
     console.log('Form Data:', formData); // Check if name is included
     try {
       const response = await fetch(
-        isLogin ? 'http://localhost:5000/auth/login' : 'http://localhost:5000/auth/register',
+        isLogin ? 'https://fierce-citadel-92825-f7d0c4973836.herokuapp.com/auth/register/login' : 'https://fierce-citadel-92825-f7d0c4973836.herokuapp.com/auth/register',
         {
           method: 'POST',
           headers: {
