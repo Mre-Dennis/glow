@@ -13,10 +13,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Allow specific origins
-const allowedOrigins = [
-  'http://localhost:3000', // Local frontend
-  'https://glow-nine-blush.vercel.app' // Deployed frontend
-];
+const allowedOrigins = {
+  origin: 'https://glow-54tf1asoy-dennis-ndungus-projects.vercel.app',  // Your Vercel frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
+  //'http://localhost:3000', // Local frontend
+  //'https://glow-nine-blush.vercel.app' // Deployed frontend
+};
 
 app.use(
   cors({
