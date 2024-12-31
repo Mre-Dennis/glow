@@ -156,7 +156,7 @@ export default function Page() {
               <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="/brand-tester" onClick={() => setMobileMenuOpen(false)}>
                 Brand Tester
               </Link>
-              <Link href="/signin">
+              <Link href="/auth">
                 <MotionButton 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
