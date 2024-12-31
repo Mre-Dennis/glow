@@ -7,6 +7,7 @@ import { BarChart, PieChart, TrendingUp, Users, Target, Search, Zap, ArrowRight,
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useState, useRef } from "react"
+
 import {
   Accordion,
   AccordionContent,
@@ -110,7 +111,7 @@ export default function Page() {
             <Link className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors" href="/brand-tester">
               Brand Tester
             </Link>
-            <Link href="/signin">
+            <Link href="/auth">
               <MotionButton 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
