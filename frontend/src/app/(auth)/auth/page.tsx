@@ -1,5 +1,3 @@
-// pages/auth.tsx
-
 'use client'
 
 import { useState } from 'react'
@@ -34,9 +32,12 @@ export default function AuthPage() {
     // Prepare the form data
     const formData = { email, password, ...(isLogin ? {} : { name }) };
     console.log('Form Data:', formData); // Check if name is included
+
     try {
       const response = await fetch(
-        isLogin ? 'https://fierce-citadel-92825-f7d0c4973836.herokuapp.com/auth/register/login' : 'https://fierce-citadel-92825-f7d0c4973836.herokuapp.com/auth/register',
+        isLogin
+          ? 'https://fierce-citadel-92825-f7d0c4973836.herokuapp.com/auth/login' // Login endpoint
+          : 'https://fierce-citadel-92825-f7d0c4973836.herokuapp.com/auth/register', // Register endpoint
         {
           method: 'POST',
           headers: {
@@ -50,7 +51,7 @@ export default function AuthPage() {
 
       if (response.ok) {
         console.log('Authentication successful:', data);
-        router.push('/dashboard');
+        router.push('/dashboard'); // Redirect after success
       } else {
         console.error('Authentication failed:', data.error);
         alert(data.error || 'An error occurred during authentication.');
@@ -63,7 +64,6 @@ export default function AuthPage() {
     }
   };
 
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <Card className="w-full max-w-md">
@@ -75,6 +75,7 @@ export default function AuthPage() {
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
+            {/* Only show name input if it's the registration form */}
             {!isLogin && (
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
@@ -146,5 +147,5 @@ export default function AuthPage() {
         </form>
       </Card>
     </div>
-  )
+  );
 }

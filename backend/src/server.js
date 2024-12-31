@@ -1,7 +1,7 @@
-// backend/src/server.js
 import dotenv from 'dotenv';
 dotenv.config(); // Load environment variables
 console.log('DATABASE_URL:', process.env.DATABASE_URL);
+
 import express from 'express';
 import session from 'express-session';
 import cors from 'cors';
@@ -12,30 +12,30 @@ const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Allow specific origins
-const allowedOrigins = {
-  origin: 'https://glow-54tf1asoy-dennis-ndungus-projects.vercel.app',  // Your Vercel frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allowed HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
-  //'http://localhost:3000', // Local frontend
-  //'https://glow-nine-blush.vercel.app' // Deployed frontend
-};
+// Allow specific origins dynamically using environment variables
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || []; // Comma-separated list of allowed origins
 
+// CORS configuration
 app.use(
   cors({
     origin: function (origin, callback) {
+      // Check if the origin is included in the allowed origins list
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));
       }
     },
-    credentials: true, // Include cookies or authorization headers
+    credentials: true, // Allow cookies or authorization headers
   })
 );
 
 // Middleware
 app.use(express.json());
+
+// Allow preflight (OPTIONS) requests
+app.options('*', cors());
+
 
 // Session Middleware
 app.use(
