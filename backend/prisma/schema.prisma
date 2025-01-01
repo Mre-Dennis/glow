@@ -26,32 +26,50 @@ model User {
   updatedAt      DateTime  @updatedAt
   deletedAt      DateTime?
 
+  // Relation to forms
+  forms          Form[]    // User-created forms
+  submissions    FormSubmission[] // User-submitted forms
+
   @@index([email], name: "idx_email")
 }
 
-model Product {
-  id                 Int                  @id @default(autoincrement())
-  name               String               @db.VarChar(255)
-  description        String?              @db.Text
-  price              Float
-  performanceData    ProductPerformanceData[]
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
+model Form {
+  id          Int          @id @default(autoincrement())
+  title       String
+  description String
+  fields      FormField[]  // Link to fields
+  submissions FormSubmission[] // Link to submissions
+
+  // Relation to User
+  userId      String
+  user        User         @relation(fields: [userId], references: [id])
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
-model ProductPerformanceData {
-  id            Int      @id @default(autoincrement())
-  productId     Int
-  productName   String   @db.VarChar(255)
-  sales         Int      @default(0)
-  views         Int      @default(0)
-  rating        Float    @default(0.0)
-  returnRate    Float    @default(0.0)
-  revenue       Float    @default(0.0)
-  dateRecorded  DateTime @default(now())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  product       Product  @relation(fields: [productId], references: [id])
+model FormField {
+  id        Int       @id @default(autoincrement())
+  label     String
+  type      String    // e.g., text, number, checkbox, etc.
+  required  Boolean   @default(false)
+  options   String[]  // For dropdown/radio options (if applicable)
+  formId    Int
+  form      Form      @relation(fields: [formId], references: [id])
 
-  @@index([productId], name: "idx_productId")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model FormSubmission {
+  id        Int       @id @default(autoincrement())
+  formId    Int
+  form      Form      @relation(fields: [formId], references: [id])
+
+  // Relation to User
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+
+  data      Json      // The form data submitted by the user
+  createdAt DateTime  @default(now())
 }
