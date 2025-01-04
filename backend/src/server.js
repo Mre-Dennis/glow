@@ -1,7 +1,4 @@
 import dotenv from 'dotenv';
-dotenv.config(); // Load environment variables from a .env file
-console.log('DATABASE_URL:', process.env.DATABASE_URL); // Log the database URL to verify it's loaded correctly
-
 import express from 'express'; // Import Express framework
 import session from 'express-session'; // For handling user sessions
 import { PrismaClient } from '@prisma/client'; // Import Prisma client to interact with the database
@@ -9,12 +6,23 @@ import bcrypt from 'bcrypt'; // Import bcrypt for hashing passwords
 import cors from 'cors'; // Import CORS to handle cross-origin requests
 import formsRoutes from './routes/forms.js'; // Import the routes for form handling (from the routes/forms.js file)
 
+dotenv.config(); // Load environment variables from a .env file
+console.log('DATABASE_URL:', process.env.DATABASE_URL); // Log the database URL to verify it's loaded correctly
+
 const prisma = new PrismaClient(); // Instantiate Prisma client to interact with the database
 const app = express(); // Create a new Express app
 const PORT = process.env.PORT || 5000; // Use the PORT from environment variables or default to 5000
 
 // Load allowed origins from environment variables
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || []; // Split the comma-separated list of allowed origins
+
+// Middleware to parse incoming JSON request bodies
+app.use(express.json());
+
+// Allow preflight (OPTIONS) requests for CORS
+app.options('*', cors());
+
+app.use('/api', formsRoutes); // Use the routes
 
 // CORS configuration to handle cross-origin requests securely
 app.use(cors({
@@ -31,11 +39,6 @@ app.use(cors({
   credentials: true, // Allow credentials like cookies and authorization headers
 }));
 
-// Middleware to parse incoming JSON request bodies
-app.use(express.json());
-
-// Allow preflight (OPTIONS) requests for CORS
-app.options('*', cors());
 
 // Session Middleware to handle user sessions
 app.use(
@@ -50,6 +53,10 @@ app.use(
     },
   })
 );
+
+app.get('/status', (req, res) => {
+  res.send('App is up and running');
+});
 
 // User Registration Route
 app.post('/auth/register', async (req, res) => {
@@ -123,9 +130,6 @@ app.post('/auth/logout', (req, res) => {
     res.status(200).json({ message: 'Logout successful' }); // Respond with 200 OK if logout is successful
   });
 });
-
-// Form Routes
-app.use('/api', formsRoutes); // Use the form routes for any API calls starting with /api
 
 // Start the Server and listen on the defined port
 app.listen(PORT, () => {

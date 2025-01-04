@@ -715,6 +715,6 @@ export default function Page() {
         </div>
       </motion.footer>
     </div>
-  )
+  );
 }
 

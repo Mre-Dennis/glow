@@ -37,7 +37,7 @@ model Form {
   id          Int          @id @default(autoincrement())
   title       String
   description String
-  fields      FormField[]  // Link to fields
+  fields      FormField[]  @relation("FormFields") // Link to fields
   submissions FormSubmission[] // Link to submissions
 
   // Relation to User
@@ -55,7 +55,7 @@ model FormField {
   required  Boolean   @default(false)
   options   String[]  // For dropdown/radio options (if applicable)
   formId    Int
-  form      Form      @relation(fields: [formId], references: [id])
+  form      Form      @relation("FormFields", fields: [formId], references: [id])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -72,4 +72,6 @@ model FormSubmission {
 
   data      Json      // The form data submitted by the user
   createdAt DateTime  @default(now())
+
+  @@index([formId, userId], name: "idx_form_submission")
 }
