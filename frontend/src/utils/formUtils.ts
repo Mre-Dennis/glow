@@ -15,6 +15,7 @@ export interface FormField {
   required: boolean;
   options?: string[];
   likertScale?: number; // New property for Likert Scale points
+  matrixRows?: string[];
 }
 
 export interface FormConfig {
