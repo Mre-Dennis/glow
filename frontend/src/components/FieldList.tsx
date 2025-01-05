@@ -1,7 +1,7 @@
 import { FormField } from '../utils/formUtils';
 import { Button } from "@/components/ui/button";
 import { Edit, Trash2 } from 'lucide-react';
-import { Draggable, DraggableProvided } from 'react-beautiful-dnd';
+import { Draggable, DraggableProvided } from 'react-beautiful-dnd';  // Correctly importing DraggableProvided as a type
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DragDropContext } from 'react-beautiful-dnd'; // Import DragDropContext
 
@@ -24,7 +24,7 @@ export function FieldList({ fields, onEdit, onDelete }: FieldListProps) {
           <div className="space-y-4">
             {fields.map((field, index) => (
               <Draggable key={field.id} draggableId={field.id} index={index}>
-                {(provided: DraggableProvided) => (
+                {(provided: DraggableProvided) => (  // Ensure `provided` is typed correctly here
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -58,7 +58,7 @@ export function FieldList({ fields, onEdit, onDelete }: FieldListProps) {
   );
 }
 
-// Make sure you wrap the FieldList component with DragDropContext
+// Ensure you wrap the FieldList component with DragDropContext
 export function FormEditor({ fields, onEdit, onDelete }: FieldListProps) {
   const handleDragEnd = (result: any) => {
     // Handle the drag end logic
