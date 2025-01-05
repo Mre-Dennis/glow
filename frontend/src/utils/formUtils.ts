@@ -1,6 +1,16 @@
+
+export enum QuestionType {
+    Text = "text",
+    Number = "number",
+    Checkbox = "checkbox",
+    Radio = "radio",
+    Dropdown = "dropdown",
+    Toggle = "toggle",
+  }
+  
 export interface FormField {
   id: string;
-  type: QuestionType; // Updated to use QuestionType
+  type: string;
   label: string;
   required: boolean;
   options?: string[];
