@@ -1,6 +1,6 @@
 export interface FormField {
   id: string;
-  type: string;
+  type: QuestionType; // Updated to use QuestionType
   label: string;
   required: boolean;
   options?: string[];
