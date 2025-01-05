@@ -17,6 +17,10 @@ export interface FormField {
   likertScale?: number; // New property for Likert Scale points
   matrixRows?: string[];
   matrixColumns?: string[];
+  conditionalLogic?: {
+    dependsOn: string;
+    showIf: string;
+    };
 }
 
 export interface FormConfig {
