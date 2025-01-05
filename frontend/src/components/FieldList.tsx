@@ -1,7 +1,8 @@
 import { FormField } from '../utils/formUtils';
 import { Button } from "@/components/ui/button";
 import { Edit, Trash2 } from 'lucide-react';
-import { Draggable, DraggableProvided } from 'react-beautiful-dnd';  // Correctly importing DraggableProvided as a type
+import type { DraggableProvided } from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DragDropContext } from 'react-beautiful-dnd'; // Import DragDropContext
 
