@@ -1,7 +1,7 @@
 import { FormField } from '../utils/formUtils';
 import { Button } from "@/components/ui/button";
 import { Edit, Trash2 } from 'lucide-react';
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable, DraggableProvided } from 'react-beautiful-dnd';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface FieldListProps {
@@ -23,7 +23,7 @@ export function FieldList({ fields, onEdit, onDelete }: FieldListProps) {
           <div className="space-y-4">
             {fields.map((field, index) => (
               <Draggable key={field.id} draggableId={field.id} index={index}>
-                {(provided) => (
+                {(provided: DraggableProvided) => (
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -56,4 +56,3 @@ export function FieldList({ fields, onEdit, onDelete }: FieldListProps) {
     </Card>
   );
 }
-
