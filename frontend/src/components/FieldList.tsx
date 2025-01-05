@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Edit, Trash2 } from 'lucide-react';
 import { Draggable, DraggableProvided } from 'react-beautiful-dnd';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DragDropContext } from 'react-beautiful-dnd'; // Import DragDropContext
 
 interface FieldListProps {
   fields: FormField[];
@@ -54,5 +55,19 @@ export function FieldList({ fields, onEdit, onDelete }: FieldListProps) {
         )}
       </CardContent>
     </Card>
+  );
+}
+
+// Make sure you wrap the FieldList component with DragDropContext
+export function FormEditor({ fields, onEdit, onDelete }: FieldListProps) {
+  const handleDragEnd = (result: any) => {
+    // Handle the drag end logic
+    // Update fields order after drag
+  };
+
+  return (
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <FieldList fields={fields} onEdit={onEdit} onDelete={onDelete} />
+    </DragDropContext>
   );
 }
