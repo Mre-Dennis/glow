@@ -14,6 +14,7 @@ export interface FormField {
   label: string;
   required: boolean;
   options?: string[];
+  likertScale?: number; // New property for Likert Scale points
 }
 
 export interface FormConfig {
