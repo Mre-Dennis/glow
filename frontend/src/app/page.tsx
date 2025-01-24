@@ -86,6 +86,7 @@ export default function Page() {
   ]
 
   return (
+    
     <div className="flex flex-col min-h-screen bg-white">
       <motion.header 
         initial={{ y: -100 }}
@@ -550,7 +551,7 @@ export default function Page() {
             </div>
           </div>
         </section>
-
+      {/*
         <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold tracking-tighter text-blue-600 text-center sm:text-4xl mb-12">
@@ -589,7 +590,7 @@ export default function Page() {
             </div>
           </div>
         </section>
-
+*/}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">

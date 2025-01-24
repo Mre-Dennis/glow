@@ -51,7 +51,7 @@ export default function AuthPage() {
 
       if (response.ok) {
         console.log('Authentication successful:', data);
-        router.push('/dashboard'); // Redirect after success
+        router.push('/profile-creation'); // Redirect after success
       } else {
         console.error('Authentication failed:', data.error);
         alert(data.error || 'An error occurred during authentication.');
