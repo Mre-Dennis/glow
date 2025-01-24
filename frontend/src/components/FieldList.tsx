@@ -27,10 +27,10 @@ export function FieldList({ fields, onEdit, onDelete }: FieldListProps) {
               <Draggable key={field.id} draggableId={field.id} index={index}>
                 {(provided: DraggableProvided) => (  // Ensure `provided` is typed correctly here
                   <div
-                    ref={provided.innerRef}
+                    ref={provided.innerRef as React.Ref<HTMLDivElement>}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    className="flex items-center justify-between p-4 bg-accent rounded-md shadow transition-all duration-300 hover:shadow-md"
+                    {/*className="flex items-center justify-between p-4 bg-accent rounded-md shadow transition-all duration-300 hover:shadow-md"*/}
                   >
                     <div>
                       <h4 className="text-lg font-semibold text-primary">{field.label}</h4>
