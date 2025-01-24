@@ -1,6 +1,6 @@
 import type React from "react"
-import { ToggleTile } from "../ToggleTile"
-import { TextField } from "../TextField"
+import { ToggleTile } from "./ToggleTile"
+import { TextField } from "./TextField"
 import { motion } from "framer-motion"
 
 interface VisualizationPreferencesStepProps {

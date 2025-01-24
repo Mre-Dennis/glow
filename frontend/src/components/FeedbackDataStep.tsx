@@ -1,6 +1,6 @@
 import type React from "react"
-import { ToggleTile } from "../ToggleTile"
-import { Checkbox } from "../Checkbox"
+import { ToggleTile } from "./ToggleTile"
+import { Checkbox } from "./Checkbox"
 import { motion } from "framer-motion"
 
 interface FeedbackDataStepProps {
